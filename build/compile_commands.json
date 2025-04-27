@@ -1,0 +1,110 @@
+[
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Camera.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Camera.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Camera.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Camera.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Cloth.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Cloth.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Cloth.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Cloth.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Color.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Color.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Color.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Color.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Image.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Image.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Image.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Image.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Light.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Light.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Light.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Light.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Material.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Material.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Material.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Material.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Particle.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Particle.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Particle.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Particle.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Plane.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Plane.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Plane.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Plane.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Point.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Point.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Point.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Point.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Ray.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Ray.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Ray.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Ray.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Scene.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Scene.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Scene.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Scene.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Shape.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Shape.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Shape.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Shape.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/SpringDamper.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/SpringDamper.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/SpringDamper.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/SpringDamper.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Triangle.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Triangle.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Triangle.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Triangle.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Unit.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Unit.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Unit.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Unit.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/Vector.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/Vector.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/Vector.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/Vector.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/main.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/main.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/main.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/panhng/Desktop/ids90/ClothSimulator/build",
+  "command": "/usr/bin/clang++ -DDEBUG -I/opt/homebrew/include -g -O0 -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -o CMakeFiles/OpenGLProject.dir/utils.cpp.o -c /Users/panhng/Desktop/ids90/ClothSimulator/utils.cpp",
+  "file": "/Users/panhng/Desktop/ids90/ClothSimulator/utils.cpp",
+  "output": "CMakeFiles/OpenGLProject.dir/utils.cpp.o"
+}
+]

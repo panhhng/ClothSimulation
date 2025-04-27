@@ -1,0 +1,3 @@
+/Users/panhng/Desktop/ids90/ClothSimulator/build/CMakeFiles/OpenGLProject.dir
+/Users/panhng/Desktop/ids90/ClothSimulator/build/CMakeFiles/edit_cache.dir
+/Users/panhng/Desktop/ids90/ClothSimulator/build/CMakeFiles/rebuild_cache.dir

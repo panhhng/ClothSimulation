@@ -4,7 +4,7 @@ Cloth::Cloth(int x, int y)
     : particles(nullptr), triangles(nullptr),
     rows(x), cols(y), 
     num_tris(0),
-    gravity(Vector(0, -9.8, 0)), wind(Vector(0, 0, 0))
+    gravity(Vector(0, -9.8, 0)), wind(Vector(50, 5, 0))
 {
 }
 
@@ -39,7 +39,11 @@ void Cloth::initParticles(const Point &startPos, float dist)
     {
         for (int j = 0; j < cols; j++)
         {
-            Point pos = startPos + Vector(j * dist, -i * dist, 0);
+            double xd = ((drand48() * 2 - 1) / 20);
+            double yd = ((drand48() * 2 - 1) / 20);
+            double zd = ((drand48() * 2 - 1) / 20);     
+
+            Point pos = startPos + Vector(j * dist + xd, -i * dist + yd, zd);
 
             bool isFixed = i == 0;
 
@@ -74,15 +78,21 @@ void Cloth::initSprings()
                 springs.push_back(SpringDamper(particles[i + 1][j], particles[i][j + 1]));
             }
 
-            // if (j < cols - 2)
-            // {
-            //     springs[curr++] = SpringDamper(particles[i][j], particles[i][j + 2], 250.0, 5.0, 0);
-            // }
+            if (j < cols - 2)
+            {
+                Vector v(particles[i][j]->getPos(), particles[i][j + 2]->getPos());
+                float l = v.length();
 
-            // if (i < rows - 2)
-            // {
-            //     springs[curr++] = SpringDamper(particles[i][j], particles[i + 2][j], 250.0, 5.0, 0);
-            // }
+                springs.push_back(SpringDamper(particles[i][j], particles[i][j + 2], l, 100.0, 0));
+            }
+
+            if (i < rows - 2)
+            {
+                Vector v(particles[i][j]->getPos(), particles[i + 2][j]->getPos());
+                float l = v.length();
+
+                springs.push_back(SpringDamper(particles[i][j], particles[i + 2][j], l, 100.0, 0));
+            }
         }
     }
 }
@@ -129,10 +139,10 @@ void Cloth::update(float delta)
         dampers.computeForce();
     }
 
-    // for (int i = 0; i < num_tris; i++)
-    // {
-    //     triangles[i].computeAerodynamicForce(wind);
-    // }
+    for (int i = 0; i < num_tris; i++)
+    {
+        triangles[i].computeAerodynamicForce(wind);
+    }
 
     for (int i = 0; i < rows; i++)
     {

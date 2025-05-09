@@ -15,14 +15,14 @@ void init() {
     glOrtho(-1, 1, -1, 1, -1, 1);
     
     glEnable( GL_COLOR_MATERIAL );
-    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+    // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-    cloth = new Cloth(10, 10);
+    cloth = new Cloth(7, 10);
     cloth->initGrid(Point(-0.5, 0.5, 0.0), 0.1);
 }
 
@@ -99,7 +99,9 @@ void keyboard(unsigned char key, int x, int y) {
     } 
     else if (key == 'r') { 
         cloth = new Cloth(10, 10);
-        cloth->initGrid(Point(0.0, 0.0, 0.0), 0.1);
+        cloth->initGrid(Point(-0.5, 0.5, 0.0), 0.1);
+
+        glutPostRedisplay();
     }
 }
 

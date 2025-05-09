@@ -55,10 +55,10 @@ void Triangle::computeAerodynamicForce(const Vector &windVeloc)
         crossSecArea *= abs(dotProd) / relVelLength;
     }
 
-    float forceMagnitude = 0.5 * airDensity * relVelLength * relVelLength *
+    float forceMagnitude = - 0.5 * airDensity * relVelLength * relVelLength *
                            drag * crossSecArea;
 
-    Vector force = flat_normal * -forceMagnitude;
+    Vector force = flat_normal * forceMagnitude;
     force = force / 3.0;
 
     particles[0]->addForce(force);

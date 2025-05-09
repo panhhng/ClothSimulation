@@ -4,9 +4,11 @@ SpringDamper::SpringDamper(Particle* p_1, Particle* p_2)
     :
     p1(p_1), p2(p_2)
 {
-    restLen = 0.5;
-    dampFactor = 1;
-    springConst = 2;
+    Vector delta = p2->getPos() - p1->getPos();
+    restLen = delta.length();
+
+    dampFactor = .1;
+    springConst = 100;
 }
 
 SpringDamper::SpringDamper(Particle* p_1, Particle* p_2, float l0, float ks, float kd) 

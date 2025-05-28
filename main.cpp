@@ -15,7 +15,7 @@ void init() {
     glOrtho(-1, 1, -1, 1, -1, 1);
     
     glEnable( GL_COLOR_MATERIAL );
-    // glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);

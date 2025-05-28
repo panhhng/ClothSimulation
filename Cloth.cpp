@@ -39,9 +39,9 @@ void Cloth::initParticles(const Point &startPos, float dist)
     {
         for (int j = 0; j < cols; j++)
         {
-            double xd = ((drand48() * 2 - 1) / 20);
-            double yd = ((drand48() * 2 - 1) / 20);
-            double zd = ((drand48() * 2 - 1) / 20);     
+            double xd = ((drand48() * 2 - 1) / 50);
+            double yd = ((drand48() * 2 - 1) / 50);
+            double zd = ((drand48() * 2 - 1) / 50);     
 
             Point pos = startPos + Vector(j * dist + xd, -i * dist + yd, zd);
 

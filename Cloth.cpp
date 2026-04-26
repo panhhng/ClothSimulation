@@ -1,10 +1,12 @@
 #include "Cloth.h"
 
+extern bool curtainMode;
+
 Cloth::Cloth(int x, int y)
     : particles(nullptr), triangles(nullptr),
-    rows(x), cols(y), 
-    num_tris(0),
-    gravity(Vector(0, -9.8, 0)), wind(Vector(50, 5, 0))
+      rows(x), cols(y),
+      num_tris(0),
+      gravity(Vector(0, -9.8, 0)), wind(Vector(0, 0, 0))
 {
 }
 
@@ -18,12 +20,13 @@ int Cloth::getCols() const
     return cols;
 }
 
-Particle*** Cloth::getParticles() const
+Particle ***Cloth::getParticles() const
 {
     return particles;
 }
 
-void Cloth::setWindVelocity(const Vector& w) {
+void Cloth::setWindVelocity(const Vector &w)
+{
     wind = w;
 }
 
@@ -41,11 +44,20 @@ void Cloth::initParticles(const Point &startPos, float dist)
         {
             double xd = ((drand48() * 2 - 1) / 50);
             double yd = ((drand48() * 2 - 1) / 50);
-            double zd = ((drand48() * 2 - 1) / 50);     
+            double zd = ((drand48() * 2 - 1) / 500);
 
-            Point pos = startPos + Vector(j * dist + xd, -i * dist + yd, zd);
+            Point pos;
+            if (curtainMode) {
+                pos = startPos + Vector(j * dist + xd, -i * dist + yd, zd);
+            }
+            else {
+                pos = startPos + Vector(j * dist + xd, yd, -i * dist + zd);
+            }
 
-            bool isFixed = i == 0;
+            bool isFixed = false;
+            if (curtainMode) {
+                isFixed = (i == 0);   
+            }
 
             particles[i][j] = new Particle(pos, 1.0);
             particles[i][j]->setFixed(isFixed);
@@ -55,7 +67,7 @@ void Cloth::initParticles(const Point &startPos, float dist)
 
 void Cloth::initSprings()
 {
-    //num_springs = (rows - 1) * cols + rows * (cols - 1) + 2 * (rows - 1) * (cols - 1) + rows * (cols - 2) + (rows - 2) * cols;
+    // num_springs = (rows - 1) * cols + rows * (cols - 1) + 2 * (rows - 1) * (cols - 1) + rows * (cols - 2) + (rows - 2) * cols;
     springs.clear();
 
     for (int i = 0; i < rows; i++)
@@ -83,7 +95,7 @@ void Cloth::initSprings()
                 Vector v(particles[i][j]->getPos(), particles[i][j + 2]->getPos());
                 float l = v.length();
 
-                springs.push_back(SpringDamper(particles[i][j], particles[i][j + 2], l, 100.0, 0));
+                springs.push_back(SpringDamper(particles[i][j], particles[i][j + 2], l, 90.5, 0.5));
             }
 
             if (i < rows - 2)
@@ -91,7 +103,7 @@ void Cloth::initSprings()
                 Vector v(particles[i][j]->getPos(), particles[i + 2][j]->getPos());
                 float l = v.length();
 
-                springs.push_back(SpringDamper(particles[i][j], particles[i + 2][j], l, 100.0, 0));
+                springs.push_back(SpringDamper(particles[i][j], particles[i + 2][j], l, 90.5, 0.5));
             }
         }
     }
@@ -126,7 +138,8 @@ void Cloth::update(float delta)
     {
         for (int j = 0; j < cols; j++)
         {
-            if (i == 2) {
+            if (i == 2)
+            {
                 ;
             }
             particles[i][j]->clearForces();
@@ -134,7 +147,7 @@ void Cloth::update(float delta)
         }
     }
 
-    for (SpringDamper& dampers : springs)
+    for (SpringDamper &dampers : springs)
     {
         dampers.computeForce();
     }
@@ -149,6 +162,43 @@ void Cloth::update(float delta)
         for (int j = 0; j < cols; j++)
         {
             particles[i][j]->update(delta);
+
+            extern bool showBall;
+            if (showBall)
+            {
+                Point center(0.0, -0.15, 0.0);
+                float radius = 0.25;
+                float offset = 0.02;
+
+                Particle *p = particles[i][j];
+                Point pos = p->getPos();
+
+                Vector dir(center, pos);
+                float dist = dir.length();
+
+                if (dist < radius + offset)
+                {
+                    Unit normal(dir);
+
+                    pos = center + normal * (radius + offset);
+
+                    Vector vel = p->getVelocity();
+                    float vn = dot(vel, normal);
+
+                    Vector v_normal = normal * vn;
+                    Vector v_tangent = vel - v_normal;
+
+                    if (vn < 0)
+                    {
+                        v_normal = Vector(0, 0, 0);
+                    }
+
+                    vel = v_normal + (1.0 - 0.6) * v_tangent;
+
+                    p->setPos(pos);
+                    p->setVelocity(vel);
+                }
+            }
         }
     }
 }

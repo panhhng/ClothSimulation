@@ -2,6 +2,7 @@
 #define PARTICLE_H
 
 #include "Point.h"
+#include "Unit.h"
 #include "Vector.h"
 
 class Particle {
@@ -24,10 +25,15 @@ public:
     float getMass() const;
     Vector getNormal() const;
 
+    void setPos(const Point& p);
+    void setVelocity(const Vector& v);
+
     void setFixed(bool val);
     void addForce(const Vector& f);
     void update(float dt);
     bool isFixed() const;
+
+   
 
     void clearForces();
 };

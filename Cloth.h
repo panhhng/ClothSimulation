@@ -5,14 +5,12 @@
 #include "SpringDamper.h"
 #include "Triangle.h"
 
-class Cloth {
+class Cloth
+{
 private:
-    // vector<vector<Particle>> particles;
-    Particle** *particles;
-    vector<SpringDamper>     springs;
-    // SpringDamper* springs;
-    // vector<Triangle>         triangles;
-    Triangle* triangles;
+    Particle ***particles;
+    vector<SpringDamper> springs;
+    Triangle *triangles;
 
     int rows, cols;
     int num_tris;
@@ -23,16 +21,33 @@ public:
 
     int getRows() const;
     int getCols() const;
-    Particle*** getParticles() const;
+    Particle ***getParticles() const;
 
-    void setWindVelocity(const Vector& w);
+    void setWindVelocity(const Vector &w);
 
-    void initParticles(const Point& startPos, float dist);
+    void initParticles(const Point &startPos, float dist);
     void initSprings();
     void initTris();
-    void initGrid(const Point& startPos, float dist);
+    void initGrid(const Point &startPos, float dist);
 
-    void update(float delta);
+    struct SphereCollider
+    {
+        bool enabled;
+        Point center;
+        float radius;
+        float offset;
+        float friction;
+    };
+
+    struct PlatformCollider
+    {
+        bool enabled;
+        float y;
+        float offset;
+        float friction;
+    };
+
+    void update(float delta, const SphereCollider &sphere, const PlatformCollider &platform);
 };
 
 #endif

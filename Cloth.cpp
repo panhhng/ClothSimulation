@@ -1,12 +1,10 @@
 #include "Cloth.h"
 
-extern bool curtainMode;
-
 Cloth::Cloth(int x, int y)
     : particles(nullptr), triangles(nullptr),
       rows(x), cols(y),
       num_tris(0),
-      gravity(Vector(0, -9.8, 0)), wind(Vector(0, 0, 0))
+      gravity(Vector(0, -5.0, 0)), wind(Vector(2, 10, 0))
 {
 }
 
@@ -46,18 +44,8 @@ void Cloth::initParticles(const Point &startPos, float dist)
             double yd = ((drand48() * 2 - 1) / 50);
             double zd = ((drand48() * 2 - 1) / 500);
 
-            Point pos;
-            if (curtainMode) {
-                pos = startPos + Vector(j * dist + xd, -i * dist + yd, zd);
-            }
-            else {
-                pos = startPos + Vector(j * dist + xd, yd, -i * dist + zd);
-            }
-
+            Point pos = startPos + Vector(j * dist + xd, yd, -i * dist + zd);
             bool isFixed = false;
-            if (curtainMode) {
-                isFixed = (i == 0);   
-            }
 
             particles[i][j] = new Particle(pos, 1.0);
             particles[i][j]->setFixed(isFixed);
@@ -95,7 +83,7 @@ void Cloth::initSprings()
                 Vector v(particles[i][j]->getPos(), particles[i][j + 2]->getPos());
                 float l = v.length();
 
-                springs.push_back(SpringDamper(particles[i][j], particles[i][j + 2], l, 90.5, 0.5));
+                springs.push_back(SpringDamper(particles[i][j], particles[i][j + 2], l, 20.5, 0.5));
             }
 
             if (i < rows - 2)
@@ -103,7 +91,7 @@ void Cloth::initSprings()
                 Vector v(particles[i][j]->getPos(), particles[i + 2][j]->getPos());
                 float l = v.length();
 
-                springs.push_back(SpringDamper(particles[i][j], particles[i + 2][j], l, 90.5, 0.5));
+                springs.push_back(SpringDamper(particles[i][j], particles[i + 2][j], l, 20.5, 0.5));
             }
         }
     }
@@ -132,16 +120,12 @@ void Cloth::initGrid(const Point &startPos, float dist)
     initTris();
 }
 
-void Cloth::update(float delta)
+void Cloth::update(float delta, const SphereCollider &sphere, const PlatformCollider &platform)
 {
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
         {
-            if (i == 2)
-            {
-                ;
-            }
             particles[i][j]->clearForces();
             particles[i][j]->addForce(gravity * particles[i][j]->getMass());
         }
@@ -163,42 +147,55 @@ void Cloth::update(float delta)
         {
             particles[i][j]->update(delta);
 
-            extern bool showBall;
-            if (showBall)
+            Particle *p = particles[i][j];
+            Point pos = p->getPos();
+            Vector velocity = p->getVelocity();
+
+            if (platform.enabled)
             {
-                Point center(0.0, -0.15, 0.0);
-                float radius = 0.25;
-                float offset = 0.02;
+                if (pos.y() < platform.y + platform.offset)
+                {
+                    pos = Point(pos.x(), platform.y + platform.offset, pos.z());
 
-                Particle *p = particles[i][j];
-                Point pos = p->getPos();
+                    if (velocity.y() < 0)
+                    {
+                        velocity = Vector(velocity.x(), 0, velocity.z());
+                    }
 
-                Vector dir(center, pos);
+                    velocity = Vector(
+                        velocity.x() * (1.0 - platform.friction),
+                        velocity.y(),
+                        velocity.z() * (1.0 - platform.friction));
+                }
+            }
+
+            if (sphere.enabled)
+            {
+                Vector dir(sphere.center, pos);
                 float dist = dir.length();
 
-                if (dist < radius + offset)
+                if (dist < sphere.radius + sphere.offset)
                 {
                     Unit normal(dir);
 
-                    pos = center + normal * (radius + offset);
+                    pos = sphere.center + normal * (sphere.radius + sphere.offset);
 
-                    Vector vel = p->getVelocity();
-                    float vn = dot(vel, normal);
+                    float vn = dot(velocity, normal);
 
                     Vector v_normal = normal * vn;
-                    Vector v_tangent = vel - v_normal;
+                    Vector v_tangent = velocity - v_normal;
 
                     if (vn < 0)
                     {
                         v_normal = Vector(0, 0, 0);
                     }
 
-                    vel = v_normal + (1.0 - 0.6) * v_tangent;
-
-                    p->setPos(pos);
-                    p->setVelocity(vel);
+                    velocity = v_normal + (1.0 - sphere.friction) * v_tangent;
                 }
             }
+
+            p->setPos(pos);
+            p->setVelocity(velocity);
         }
     }
 }

@@ -7,9 +7,20 @@ Cloth *cloth = nullptr;
 int w = 600;
 int h = 600;
 
-bool showBall = true;
-bool showPlatform = true;
-bool curtainMode = false;
+bool isCurtain = false;
+
+Cloth::SphereCollider sphere = {
+    true,
+    Point(0.0, -0.15, 0.0),
+    0.25,
+    0.02,
+    0.05};
+
+Cloth::PlatformCollider platform = {
+    true,
+    -0.8,
+    0.02,
+    0.05};
 
 void init()
 {
@@ -37,8 +48,8 @@ void init()
     glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
-    cloth = new Cloth(30, 30);
-    cloth->initGrid(Point(-0.9, .8, .1), 0.05);
+    cloth = new Cloth(25, 25);
+    cloth->initGrid(Point(-0.9, .8, .1), 0.1);
 }
 
 void renderCloth()
@@ -83,7 +94,8 @@ void renderCloth()
     glEnd();
 }
 
-void display() {
+void display()
+{
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
@@ -92,26 +104,38 @@ void display() {
     gluLookAt(
         0.0, 0.2, 3.0,
         0.0, 0.0, 0.0,
-        0.0, 1.0, 0.0
-    );
+        0.0, 1.0, 0.0);
 
     glRotatef(25, 1, 0, 0);
     glRotatef(-25, 0, 1, 0);
 
-    if (showPlatform) {
+    if (isCurtain)
+    {
+        GLfloat light_position[] = {2.0, 1.0, -2.0, 1.0};
+        glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    }
+    else
+    {
+        GLfloat light_position[] = {2.0, 3.0, 4.0, 1.0};
+        glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    }
+
+    if (platform.enabled)
+    {
         glPushMatrix();
         glColor3f(0.3, 0.3, 0.3);
-        glTranslatef(0.0, -0.8, 0.0);
-        glScalef(3.0, 0.03, 3.0);
+        glTranslatef(0.0, platform.y, 0.0);
+        glScalef(5.0, 0.03, 5.0);
         glutSolidCube(1.0);
         glPopMatrix();
     }
 
-    if (showBall) {
+    if (sphere.enabled)
+    {
         glPushMatrix();
         glColor3f(0.0, 0.45, 1.0);
-        glTranslatef(0.0, -0.15, 0.0);
-        glutSolidSphere(0.25, 40, 40);
+        glTranslatef(sphere.center.x(), sphere.center.y(), sphere.center.z());
+        glutSolidSphere(sphere.radius, 40, 40);
         glPopMatrix();
     }
 
@@ -124,7 +148,7 @@ void update(int value)
 {
     for (int i = 0; i < 100; i++)
     {
-        cloth->update(0.00015);
+        cloth->update(0.00015, sphere, platform);
     }
 
     glutPostRedisplay();
@@ -142,36 +166,56 @@ void keyboard(unsigned char key, int x, int y)
     }
     else if (key == 'r')
     {
-        cloth = new Cloth(10, 10);
-        cloth->initGrid(Point(-0.5, 0.5, 0.0), 0.1);
+        delete cloth;
+
+        isCurtain = false;
+        sphere.enabled = true;
+        platform.enabled = true;
+
+        cloth = new Cloth(25, 25);
+        cloth->initGrid(Point(-0.9, .8, .1), 0.1);
 
         glutPostRedisplay();
     }
     else if (key == 'b')
     {
-        showBall = !showBall;
+        sphere.enabled = !sphere.enabled;
         glutPostRedisplay();
     }
     else if (key == 'p')
     {
-        showPlatform = !showPlatform;
+        platform.enabled = !platform.enabled;
         glutPostRedisplay();
     }
     else if (key == 'c')
     {
-        curtainMode = !curtainMode;
-
         delete cloth;
-        cloth = new Cloth(20, 25);
 
-        if (curtainMode)
+        isCurtain = !isCurtain;
+
+        if (isCurtain)
         {
-            cloth->initGrid(Point(-0.5, 0.5, 0.0), 0.1); // curtain
+            sphere.enabled = false;
+            platform.enabled = false;
+
+            cloth = new Cloth(10, 10);
+            cloth->initGrid(Point(-0.5, 0.5, 0.0), 0.1);
+
+            Particle ***p = cloth->getParticles();
+            for (int j = 0; j < cloth->getCols(); j++)
+            {
+                p[0][j]->setFixed(true);
+            }
         }
         else
         {
-            cloth->initGrid(Point(-0.9, 0.6, 0.9), 0.04); // sheet over ball
+            sphere.enabled = true;
+            platform.enabled = true;
+
+            cloth = new Cloth(25, 25);
+            cloth->initGrid(Point(-0.9, .8, .1), 0.1);
         }
+
         glutPostRedisplay();
     }
 }

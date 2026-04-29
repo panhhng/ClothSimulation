@@ -52,11 +52,32 @@ void init()
     cloth->initGrid(Point(-0.9, .8, .1), 0.1);
 }
 
+bool isTriangleValid(Point a, Point b, Point c, float maxEdgeLength)
+{
+    return Vector(a, b).length() < maxEdgeLength &&
+           Vector(b, c).length() < maxEdgeLength &&
+           Vector(c, a).length() < maxEdgeLength;
+}
+
+void renderTriangle(Point a, Point b, Point c)
+{
+    Vector edge1 = b - a;
+    Vector edge2 = c - a;
+    Unit normal = Unit(edge1.cross(edge2));
+
+    glNormal3f(normal.x(), normal.y(), normal.z());
+    glVertex3f(a.x(), a.y(), a.z());
+    glVertex3f(b.x(), b.y(), b.z());
+    glVertex3f(c.x(), c.y(), c.z());
+}
+
 void renderCloth()
 {
     Particle ***particles = cloth->getParticles();
     int rows = cloth->getRows();
     int cols = cloth->getCols();
+
+    float maxEdgeLength = 0.8;
 
     glColor3f(0.7, 0.3, 0.3);
     glBegin(GL_TRIANGLES);
@@ -65,29 +86,20 @@ void renderCloth()
     {
         for (int j = 0; j < cols - 1; j++)
         {
-            Point p1 = particles[i][j]->getPos();
-            Point p2 = particles[i][j + 1]->getPos();
-            Point p3 = particles[i + 1][j]->getPos();
+            Point topLeft = particles[i][j]->getPos();
+            Point topRight = particles[i][j + 1]->getPos();
+            Point bottomLeft = particles[i + 1][j]->getPos();
+            Point bottomRight = particles[i + 1][j + 1]->getPos();
 
-            Vector v1 = p2 - p1;
-            Vector v2 = p3 - p1;
-            Unit normal = Unit(v1.cross(v2));
+            if (isTriangleValid(topLeft, topRight, bottomLeft, maxEdgeLength))
+            {
+                renderTriangle(topLeft, topRight, bottomLeft);
+            }
 
-            glNormal3f(normal.x(), normal.y(), normal.z());
-            glVertex3f(p1.x(), p1.y(), p1.z());
-            glVertex3f(p2.x(), p2.y(), p2.z());
-            glVertex3f(p3.x(), p3.y(), p3.z());
-
-            Point p4 = particles[i + 1][j + 1]->getPos();
-
-            v1 = p4 - p2;
-            v2 = p3 - p2;
-            normal = Unit(v1.cross(v2));
-
-            glNormal3f(normal.x(), normal.y(), normal.z());
-            glVertex3f(p2.x(), p2.y(), p2.z());
-            glVertex3f(p4.x(), p4.y(), p4.z());
-            glVertex3f(p3.x(), p3.y(), p3.z());
+            if (isTriangleValid(topRight, bottomRight, bottomLeft, maxEdgeLength))
+            {
+                renderTriangle(topRight, bottomRight, bottomLeft);
+            }
         }
     }
 
@@ -140,7 +152,6 @@ void display()
     }
 
     renderCloth();
-
     glutSwapBuffers();
 }
 
